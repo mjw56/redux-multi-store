@@ -1,21 +1,37 @@
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
 
-const store = createStore(() => {
-  return {
-    store1: createStore(() => {
-      return 'store 1 state'
+var rootReducer = function() {
+  let reducer = {
+    store1: createStore((state = 'hello store 1') => {
+      console.log(store)
+      return state
     }),
-    store2: createStore(() => {
-      return 'store 2 state'
+    store2: createStore((state = 'hello store 2') => {
+      console.log(state)
+      return state
     }),
-    store3: createStore(() => {
-      return 'store 3 state'
+    store3: createStore((state = 'hello store 3') => {
+      console.log(state)
+      return state
     })
   }
-});
 
-const rootState = store.getState()
+  return reducer
+}
 
-console.log(rootState.store1.getState())
-console.log(rootState.store2.getState())
-console.log(rootState.store3.getState())
+let originalReducers = rootReducer()
+export var store = createStore(rootReducer);
+
+// store.replaceReducer(() => Object.assign({}, originalReducers, {
+//   store3: createStore((state = 'hello store 3') => {
+//     console.log(state)
+//     return state
+//   })
+// }))
+
+// originalReducers.store3 = createStore((state = 'hello store 3') => {
+//   console.log(state)
+//   return state
+// })
+
+// store.replaceReducer(() => originalReducers)
