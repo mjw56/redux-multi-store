@@ -22,16 +22,9 @@ var rootReducer = function() {
 let originalReducers = rootReducer()
 export var store = createStore(rootReducer);
 
-// store.replaceReducer(() => Object.assign({}, originalReducers, {
-//   store3: createStore((state = 'hello store 3') => {
-//     console.log(state)
-//     return state
-//   })
-// }))
-
-// originalReducers.store3 = createStore((state = 'hello store 3') => {
-//   console.log(state)
-//   return state
-// })
-
-// store.replaceReducer(() => originalReducers)
+store.replaceReducer(() => Object.assign({}, originalReducers, {
+  store4: createStore((state = 'hello store 4') => {
+    console.log(state)
+    return state
+  })
+}))
