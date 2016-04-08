@@ -1,24 +1,16 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
+import { render } from 'react-dom'
+import { createStore, combineReducers } from 'redux'
+import { Provider } from 'react-redux'
+import { Sidebar } from './Sidebar'
 
-class App extends Component {
-  constructor(props) {
-    super(props)
-    console.log(props)
-  }
+const store = createStore(combineReducers({
+  user: (state, action) => ({ name: 'Le App' })
+}))
 
-  render() {
-    return (
-      <div>
-        <h1>Hello World!</h1>
-        <button onClick={() => this.props.dispatch({ type: 'BUTTON_CLICK', store: this.props.store })}>Click me</button>
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {}
-}
-
-export default connect(mapStateToProps)(App)
+export const App = () => (
+  <Provider store={store}>
+    <Sidebar />
+  </Provider>
+)
+render(<App />, document.getElementById('root'))
